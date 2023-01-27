@@ -4,8 +4,8 @@ import { Types } from "types";
 import { getData } from "./data";
 
 import Character from "./Character";
-import Nav from "components/Nav";
-import NavItem from "components/NavItem";
+import Nav from "@/components/Nav";
+import NavItem from "@/components/NavItem";
 
 export const CharactersList = () => {
   const [characters, setCharacters] = useState<Types.Character[] | []>([]);

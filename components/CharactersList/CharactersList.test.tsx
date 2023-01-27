@@ -149,18 +149,17 @@ describe("CharactersList", () => {
 
     render(<CharactersList />);
 
-    await waitFor(() => screen.getByText("Characters"));
     expect(fetchMock.mock.calls[0][0]).toBe(
       "https://rickandmortyapi.com/api/character/?page=1"
     );
 
-    const listitem = await screen.findAllByRole("listitem");
+    const characters = await screen.findAllByRole("article");
 
     // there are 2 list items
-    expect(listitem).toHaveLength(2);
+    expect(characters).toHaveLength(2);
 
     // the two first characters are Rick and Jerry
-    expect(listitem[0]).toHaveTextContent("Rick Sanchez");
-    expect(listitem[1]).toHaveTextContent("Jerry Smith");
+    expect(characters[0]).toHaveTextContent("Rick Sanchez");
+    expect(characters[1]).toHaveTextContent("Jerry Smith");
   });
 });

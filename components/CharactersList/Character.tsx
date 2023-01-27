@@ -13,7 +13,7 @@ export default function Character({
   gender,
 }: Partial<Types.Character>) {
   return (
-    <article key={id} className="flex items-start space-x-6 p-6">
+    <article className="flex items-start space-x-6 p-6">
       {image && (
         <Image
           src={image}
