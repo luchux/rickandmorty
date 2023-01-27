@@ -1,6 +1,7 @@
-import type { Character } from "./CharactersList";
+import { Types } from "types";
+
 interface CharactersAPIResponse {
-  results: Character[];
+  results: Types.Character[];
   info: {
     count: number;
     pages: number;

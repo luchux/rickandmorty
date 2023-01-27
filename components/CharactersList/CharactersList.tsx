@@ -1,29 +1,14 @@
 import { useState, useEffect } from "react";
 
-export interface Character {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  image: string;
-  episode: string[];
-  url: string;
-  created: Date;
-}
+import { Types } from "types";
 import { getData } from "./data";
 
+import Character from "./Character";
+import Nav from "components/Nav";
+import NavItem from "components/NavItem";
+
 export const CharactersList = () => {
-  const [characters, setCharacters] = useState<Character[] | []>([]);
+  const [characters, setCharacters] = useState<Types.Character[] | []>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     getData(1).then((response) => {
@@ -34,16 +19,25 @@ export const CharactersList = () => {
   }, []);
 
   return (
-    <div>
-      <span>Characters</span>
-      <ul role="list">
-        {!loading &&
-          characters.map(({ id, name }) => (
-            <li role="listitem" key={id}>
-              {name}
-            </li>
-          ))}
-      </ul>
+    <div className="grid grid-cols-2 gap-2">
+      <div>
+        <Nav>
+          <NavItem href="/new" isActive>
+            New Releases
+          </NavItem>
+          <NavItem href="/top">Top Rated</NavItem>
+          <NavItem href="/picks">Vincent’s Picks</NavItem>
+        </Nav>
+        <ul role="list" className="divide-y divide-slate-100">
+          {!loading &&
+            characters.map((character) => (
+              <Character key={character.id} {...character} />
+            ))}
+        </ul>
+      </div>
+      <div>
+        <h1>Character Details</h1>
+      </div>
     </div>
   );
 };
