@@ -10,6 +10,9 @@ import NavItem from "@/components/NavItem";
 export const CharactersList = () => {
   const [characters, setCharacters] = useState<Types.Character[] | []>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCharacter, setSlectedCharacter] =
+    useState<Types.Character | null>(null);
+
   useEffect(() => {
     getData(1).then((response) => {
       console.log(response);
@@ -31,12 +34,21 @@ export const CharactersList = () => {
         <ul role="list" className="divide-y divide-slate-100">
           {!loading &&
             characters.map((character) => (
-              <Character key={character.id} {...character} />
+              <Character
+                key={character.id}
+                character={character}
+                onClick={() => setSlectedCharacter(character)}
+              />
             ))}
         </ul>
       </div>
       <div>
-        <h1>Character Details</h1>
+        {selectedCharacter && (
+          <div>
+            <h1>Character Details</h1>
+            <span>{selectedCharacter.name}</span>
+          </div>
+        )}
       </div>
     </div>
   );

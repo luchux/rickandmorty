@@ -1,19 +1,16 @@
 import Image from "next/image";
 import { Types } from "types";
 
+interface CharacterProps {
+  character: Partial<Types.Character>;
+  onClick: () => void;
+}
 export default function Character({
-  image,
-  name,
-  id,
-  episode,
-  status,
-  location,
-  species,
-  origin,
-  gender,
-}: Partial<Types.Character>) {
+  character: { image, name, gender, species, status, origin, location },
+  onClick,
+}: CharacterProps) {
   return (
-    <article className="flex items-start space-x-6 p-6">
+    <article className="flex items-start space-x-6 p-6" onClick={onClick}>
       {image && (
         <Image
           src={image}

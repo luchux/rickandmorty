@@ -1,12 +1,12 @@
 import React from "react";
-import { render, waitFor, screen } from "@testing-library/react";
+import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { CharactersList } from "./CharactersList";
 
 describe("CharactersList", () => {
   afterEach(() => {
     fetchMock.mockClear();
   });
-  it("should display a list of characters", async () => {
+  beforeEach(() => {
     fetchMock.mockResponse(
       JSON.stringify({
         results: [
@@ -146,7 +146,9 @@ describe("CharactersList", () => {
         info: {},
       })
     );
+  });
 
+  it("should display a list of characters", async () => {
     render(<CharactersList />);
 
     expect(fetchMock.mock.calls[0][0]).toBe(
@@ -161,5 +163,21 @@ describe("CharactersList", () => {
     // the two first characters are Rick and Jerry
     expect(characters[0]).toHaveTextContent("Rick Sanchez");
     expect(characters[1]).toHaveTextContent("Jerry Smith");
+  });
+
+  it("render selected character", async () => {
+    render(<CharactersList />);
+
+    const characters = await screen.findAllByRole("article");
+
+    fireEvent.click(characters[1]);
+
+    await waitFor(() => {
+      screen.getByText("Character Details");
+    });
+    // the selected character appears 2 times, one in list one in details.
+    // the ohter character in the mock, appears only once, in the list.
+    expect(await screen.findAllByText("Rick Sanchez")).toHaveLength(1);
+    expect(await screen.findAllByText("Jerry Smith")).toHaveLength(2);
   });
 });
