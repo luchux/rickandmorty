@@ -4,8 +4,6 @@ import { Types } from "types";
 import { getData } from "./data";
 
 import Character from "./Character";
-import Nav from "@/components/Nav";
-import NavItem from "@/components/NavItem";
 
 export const CharactersList = () => {
   const [characters, setCharacters] = useState<Types.Character[] | []>([]);
@@ -22,16 +20,9 @@ export const CharactersList = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <div>
-        <Nav>
-          <NavItem href="/new" isActive>
-            New Releases
-          </NavItem>
-          <NavItem href="/top">Top Rated</NavItem>
-          <NavItem href="/picks">Vincent’s Picks</NavItem>
-        </Nav>
-        <ul role="list" className="divide-y divide-slate-100">
+    <div className="grid grid-cols-2">
+      <div className="overflow-y-scroll max-h-screen">
+        <ul role="list" className="flex flex-col">
           {!loading &&
             characters.map((character) => (
               <Character
