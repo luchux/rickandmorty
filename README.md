@@ -1,6 +1,13 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), it uses rickandmortyapi.com to fetch data and render. 
 
 Is a project to test the new app folder structure of NextJs, but is failing with the tests. 
+The problem is that ServerComponents return a promise, and typescript TSX definition of a component doesn't expect a promise to be returned. 
+
+waiting this issues to be fixed in Microsoft/Typescript to move forward to check the app layouts. 
+https://github.com/vercel/next.js/issues/43537
+https://github.com/microsoft/TypeScript/pull/51328
+ 
+
 So moved stuffed for now to the old pages/ structure. 
 
 ## Getting Started
